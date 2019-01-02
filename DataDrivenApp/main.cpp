@@ -51,10 +51,9 @@ int main() {
 	ifstream infile;
 	string line, searchTerm;
 	int count, restart, offset;
-	
 
 	//list of all search options for easier repeating
-	string queries[10] = { "Count Total", "Count tweets that mention money", "Count tweets that mention politics", "Print tweets mentioning Paris", "Print tweets mentioning Dreamworks", "Print tweets mentioning Uber", "Print by custom Search", "Count by custom Search", "Search by date", "Print all"};
+	string queries[12] = { "Count Total", "Count tweets that mention money", "Count tweets that mention politics", "Print tweets mentioning Paris", "Print tweets mentioning Dreamworks", "Print tweets mentioning Uber", "Print by custom Search", "Count by custom Search", "Count by custom date", "Print by custom date", "Print all", "Exit app"};
 
 	//checks file is good before running program
 	if (infile.good()) {
@@ -68,6 +67,7 @@ int main() {
 			for (int i = 0; i < 10; i++) {
 				cout << i + 1 << ". " << queries[i] << endl;
 			}
+			cout << "0." << queries[11] << endl;
 
 			//user input + cin.fail: user selects their query choice and is stopped from inputting incorrect data types
 			int userInput;
@@ -331,12 +331,70 @@ int main() {
 
 			/*============================================================================*/
 			case 9:
-				cout << "date" << endl;
-				escape = true;
+				clearScreen();
+				count = 0;
+
+				cout << "Please enter a date to search using the DD/MM/YYYY" << endl;
+				cin >> searchTerm;
+
+				infile.open("sampleTweets.csv");
+				cout << "Counting tweets that mention " << searchTerm << ":" << endl;
+				while (!infile.eof()) {
+					while (getline(infile, line)) {
+						if ((offset = line.find(searchTerm, 0)) != string::npos) {
+							count++;
+						}
+					}
+				}
+
+				cout << count << " tweets that mention " << searchTerm << "." << endl;
+				cout << "Press 0 to search again or any other number to exit." << endl;
+				cin >> restart;
+				while (cin.fail()) {
+					cout << "Invalid input, try again" << endl;
+					cin.clear();
+					cin.ignore(1000, '\n');
+					cin >> restart;
+				}
+
+				infile.close();
+				escape = restart;
 				break;
 
 			/*============================================================================*/
 			case 10:
+				clearScreen();
+				count = 0;
+
+				cout << "Please enter a date to search using the DD/MM/YYYY" << endl;
+				cin >> searchTerm;
+
+				infile.open("sampleTweets.csv");
+				cout << "Counting tweets tweets from " << searchTerm << ":" << endl;
+				while (!infile.eof()) {
+					while (getline(infile, line)) {
+						if ((offset = line.find(searchTerm, 0)) != string::npos) {
+							cout << line << endl;
+						}
+					}
+				}
+
+				cout << "Press 0 to search again or any other number to exit." << endl;
+				cin >> restart;
+				while (cin.fail()) {
+					cout << "Invalid input, try again" << endl;
+					cin.clear();
+					cin.ignore(1000, '\n');
+					cin >> restart;
+				}
+
+				infile.close();
+				escape = restart;
+				break;
+
+			/*============================================================================*/
+
+			case 11:
 				clearScreen();
 				infile.open("sampleTweets.csv");
 				cout << "Printing all tweets:" << endl;
@@ -354,7 +412,13 @@ int main() {
 				escape = restart;
 				break;
 
-				/*============================================================================*/
+			/*============================================================================*/
+
+			case 0:
+				escape = true;
+				break;
+
+			/*============================================================================*/
 
 			default:
 				cout << "Invalid input" << endl;
