@@ -6,11 +6,12 @@ using namespace std;
 class Tweet {
 public:
 	
-	static int Count(ifstream &infile, int count, int offset, string lower, string upper, string line) {
+	static void Count(ifstream &infile, int count, int offset, string lower, string upper, string line) {
 
+		clearScreen();
 		infile.open("sampleTweets.csv");
 		count = 0;
-		cout << "Counting tweets that mention " << lower << ":" << endl;
+		cout << "Counting tweets... " << endl;
 		if (infile.good()) {
 			while (!infile.eof()) {
 				while (getline(infile, line)) {
@@ -19,7 +20,8 @@ public:
 					}
 				}
 			}
-			return count;
+			cout << count << " Tweets mention " << lower << endl;
+			dashPrint();
 		}
 		else {
 			cout << "Error occured while reading file, please try again" << endl;
@@ -29,6 +31,7 @@ public:
 
 	static void Print(ifstream &infile, int offset, string lower, string upper, string line) {
 
+		clearScreen();
 		infile.open("sampleTweets.csv");
 		if (infile.good()) {
 			cout << "Printing tweets that mention " << lower << ":" << endl;
@@ -45,6 +48,35 @@ public:
 			cout << "Error occured while reading file, please try again" << endl;
 		}
 		infile.close();
+	}
+
+	static void Date(ifstream &infile, int count, int offset, string date, string line) {
+
+		clearScreen();
+		infile.open("sampleTweets.csv");
+		count = 0;
+		cout << "Counting tweets... " << endl;
+		if (infile.good()) {
+			while (!infile.eof()) {
+				while (getline(infile, line)) {
+					if ((offset = line.find(date, 0)) != string::npos) {
+						count++;
+					}
+				}
+			}
+			cout << count << " Tweets from " << date << endl;
+			dashPrint();
+		}
+		else {
+			cout << "Error occured while reading file, please try again" << endl;
+		}
+		infile.close();
+	}
+
+	static void clearScreen() {
+		for (int i = 0; i < 1000; i++) {
+			cout << endl;
+		}
 	}
 
 	static void dashPrint() {
