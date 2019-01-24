@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
+#include "ofTrueTypeFont.h"
 
 class ofApp : public ofBaseApp{
 
@@ -10,8 +11,10 @@ class ofApp : public ofBaseApp{
 		void update();
 		void draw();
 
-		int sectionX, sectionY, pad;
+		int sectionX, sectionY, pad, titlePosX;
 		
 		ofRectangle sideBar, mainBody;
+
+		ofTrueTypeFont textFont;
 		
 };

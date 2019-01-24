@@ -5,7 +5,7 @@ using namespace std;
 
 class Tweet {
 public:
-	
+
 	static void Count(ifstream &infile, int count, int offset, string lower, string upper, string line) {
 
 		clearScreen();
@@ -50,7 +50,8 @@ public:
 		infile.close();
 	}
 
-	static void Date(ifstream &infile, int count, int offset, string date, string line) {
+	static void Date(ifstream &infile, int count, int offset, string searchTerm, string line) {
+
 
 		clearScreen();
 		infile.open("sampleTweets.csv");
@@ -59,12 +60,12 @@ public:
 		if (infile.good()) {
 			while (!infile.eof()) {
 				while (getline(infile, line)) {
-					if ((offset = line.find(date, 0)) != string::npos) {
+					if ((offset = line.find("" + searchTerm + "", 0)) != string::npos) {
 						count++;
 					}
 				}
 			}
-			cout << count << " Tweets from " << date << endl;
+			cout << count << " Tweets from " << searchTerm << endl;
 			dashPrint();
 		}
 		else {
@@ -86,5 +87,38 @@ public:
 		}
 		cout << endl;
 	}
+
+	/*
+
+	functions for date searching usingthe to_string method (they don't work right now), get jake's input
+
+	static void Date(ifstream &infile, int count, int offset, int day, int month, int year, string line) {
+
+
+		clearScreen();
+		infile.open("sampleTweets.csv");
+		count = 0;
+		cout << "Counting tweets... " << endl;
+		if (infile.good()) {
+			while (!infile.eof()) {
+				while (getline(infile, line)) {
+					if ((offset = line.find(dateGet(day) + "/" + dateGet(month) + "/" + dateGet(year), 0)) != string::npos) {
+						count++;
+					}
+				}
+			}
+			cout << count << " Tweets from " << "" + dateGet(day) + "/" + dateGet(month) + "/" + dateGet(year) + "" << endl;
+			dashPrint();
+		}
+		else {
+			cout << "Error occured while reading file, please try again" << endl;
+		}
+		infile.close();
+	}
+
+	static string dateGet(int num) {
+		return to_string(num);
+	}
+	*/
 
 };
