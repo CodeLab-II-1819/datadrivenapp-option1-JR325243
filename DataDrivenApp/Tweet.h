@@ -9,7 +9,7 @@ public:
 	static void Count(ifstream &infile, int count, int offset, string lower, string upper, string line) {
 
 		clearScreen();
-		infile.open("sampleTweets.csv");
+		infile.open("sampleTweets.pdf");
 		count = 0;
 		cout << "Counting tweets... " << endl;
 		if (infile.good()) {
@@ -52,6 +52,19 @@ public:
 
 	static void Date(ifstream &infile, int count, int offset, string searchTerm, string line) {
 
+		//check for valid input length
+		while (searchTerm.length() > 10 || searchTerm.length() < 10) {
+			cout << "Date entered is not valid, please try again (DD/MM/YYYY)" << endl;
+			cin >> searchTerm;
+		}
+
+		//check for invalid characters
+		for (int i = 0; i < searchTerm.length(); i++) {
+			if (isalpha(searchTerm[i])) {
+				cout << "Date entered is not valid, please try again (DD/MM/YYYY)" << endl;
+				cin >> searchTerm;
+			}
+		}
 
 		clearScreen();
 		infile.open("sampleTweets.csv");
@@ -87,38 +100,5 @@ public:
 		}
 		cout << endl;
 	}
-
-	/*
-
-	functions for date searching usingthe to_string method (they don't work right now), get jake's input
-
-	static void Date(ifstream &infile, int count, int offset, int day, int month, int year, string line) {
-
-
-		clearScreen();
-		infile.open("sampleTweets.csv");
-		count = 0;
-		cout << "Counting tweets... " << endl;
-		if (infile.good()) {
-			while (!infile.eof()) {
-				while (getline(infile, line)) {
-					if ((offset = line.find(dateGet(day) + "/" + dateGet(month) + "/" + dateGet(year), 0)) != string::npos) {
-						count++;
-					}
-				}
-			}
-			cout << count << " Tweets from " << "" + dateGet(day) + "/" + dateGet(month) + "/" + dateGet(year) + "" << endl;
-			dashPrint();
-		}
-		else {
-			cout << "Error occured while reading file, please try again" << endl;
-		}
-		infile.close();
-	}
-
-	static string dateGet(int num) {
-		return to_string(num);
-	}
-	*/
 
 };

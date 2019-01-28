@@ -67,6 +67,15 @@ int main() {
 				else {
 					cout << "Error occured while reading file, please try again" << endl;
 				}
+				
+				cout << "Press 0 to search again or any other number to exit." << endl;
+				cin >> restart;
+				while (cin.fail()) {
+					cout << "Invalid input, try again" << endl;
+					cin.clear();
+					cin.ignore(1000, '\n');
+					cin >> restart;
+				}
 
 				infile.close();
 				
@@ -122,19 +131,10 @@ int main() {
 
 			/*============================================================================*/
 			case 5:
-				cout << "Please enter a date to search using the DD/MM/YYYY" << endl;
+				cout << "Please enter a date to search (DD/MM/YYYY)" << endl;
 				cin >> searchTerm;
 
 				Tweet::Date(infile, count, offset, searchTerm, line);
-
-				/*
-				This code is for the to_string method of date searching (which doesn't work right now), get some input from Jake
-
-				cout << "Please enter a date to search using the following format: DD MM YYYY" << endl;
-				cin >> day >> month >> year;
-
-				Tweet::Date(infile, count, offset, day, month, year, line);
-				*/
 
 				cout << "Press 0 to search again or any other number to exit." << endl;
 				cin >> restart;

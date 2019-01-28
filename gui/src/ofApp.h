@@ -11,10 +11,10 @@ class ofApp : public ofBaseApp{
 		void update();
 		void draw();
 
-		int sectionX, sectionY, pad, titlePosX;
+		int sectionX, sectionY, pad;
 		
 		ofRectangle sideBar, mainBody;
 
-		ofTrueTypeFont textFont;
+		ofTrueTypeFont TitleFont, OptionFont, TweetFont;
 		
 };
