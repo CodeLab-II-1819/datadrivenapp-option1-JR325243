@@ -8,8 +8,8 @@ public:
 
 	static void Count(ifstream &infile, int count, int offset, string lower, string upper, string line) {
 
-		clearScreen();
-		infile.open("sampleTweets.pdf");
+		system("cls");
+		infile.open("sampleTweets.csv");
 		count = 0;
 		cout << "Counting tweets... " << endl;
 		if (infile.good()) {
@@ -21,7 +21,7 @@ public:
 				}
 			}
 			cout << count << " Tweets mention " << lower << endl;
-			dashPrint();
+			DashPrint();
 		}
 		else {
 			cout << "Error occured while reading file, please try again" << endl;
@@ -31,7 +31,7 @@ public:
 
 	static void Print(ifstream &infile, int offset, string lower, string upper, string line) {
 
-		clearScreen();
+		system("cls");
 		infile.open("sampleTweets.csv");
 		if (infile.good()) {
 			cout << "Printing tweets that mention " << lower << ":" << endl;
@@ -39,7 +39,7 @@ public:
 				while (getline(infile, line)) {
 					if ((offset = line.find(" " + lower + " ", 0)) != string::npos || (offset = line.find(" " + upper + " ", 0)) != string::npos) {
 						cout << line << endl;
-						Tweet::dashPrint();
+						Tweet::DashPrint();
 					}
 				}
 			}
@@ -66,7 +66,7 @@ public:
 			}
 		}
 
-		clearScreen();
+		system("cls");
 		infile.open("sampleTweets.csv");
 		count = 0;
 		cout << "Counting tweets... " << endl;
@@ -79,7 +79,7 @@ public:
 				}
 			}
 			cout << count << " Tweets from " << searchTerm << endl;
-			dashPrint();
+			DashPrint();
 		}
 		else {
 			cout << "Error occured while reading file, please try again" << endl;
@@ -87,18 +87,13 @@ public:
 		infile.close();
 	}
 
-	static void clearScreen() {
-		for (int i = 0; i < 1000; i++) {
-			cout << endl;
-		}
-	}
-
-	static void dashPrint() {
+	static void DashPrint() {
 		cout << endl;
 		for (int i = 0; i < 100; i++) {
 			cout << "-";
 		}
 		cout << endl;
 	}
+
 
 };

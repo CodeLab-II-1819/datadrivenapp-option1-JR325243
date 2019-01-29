@@ -21,12 +21,12 @@ int main() {
 		bool escape = false;
 		do {
 			//print list of query options
-			Tweet::clearScreen();
+			system("cls");
 			cout << "Select query:" << endl;
 			for (int i = 0; i < 10; i++) {
 				cout << i + 1 << ". " << queries[i] << endl;
 			}
-			Tweet::dashPrint();
+			Tweet::DashPrint();
 			cout << "0." << queries[10] << endl;
 
 			//user input + cin.fail: user selects their query choice and is stopped from inputting incorrect data types
@@ -44,7 +44,7 @@ int main() {
 
 			/*============================================================================*/
 			case 1:
-				Tweet::clearScreen();
+				system("cls");
 				count = 0;
 
 				infile.open("sampleTweets.csv");
@@ -55,6 +55,7 @@ int main() {
 						count++;
 					}
 					cout << count - 1 << " tweets in total." << endl;
+					Tweet::DashPrint();
 					cout << "Press 0 to search again or any other number to exit." << endl;
 					cin >> restart;
 					while (cin.fail()) {
@@ -68,6 +69,7 @@ int main() {
 					cout << "Error occured while reading file, please try again" << endl;
 				}
 				
+				Tweet::DashPrint();
 				cout << "Press 0 to search again or any other number to exit." << endl;
 				cin >> restart;
 				while (cin.fail()) {
@@ -96,6 +98,7 @@ int main() {
 				}
 
 				escape = restart;
+				
 				break;
 
 			/*============================================================================*/
@@ -224,7 +227,7 @@ int main() {
 				while (!infile.eof()) {
 					getline(infile, line);
 					cout << line << endl;
-					Tweet::dashPrint();
+					Tweet::DashPrint();
 				}
 				cout << "Press 0 to search again or any other number to exit." << endl;
 				cin >> restart;
@@ -254,7 +257,7 @@ int main() {
 			}
 		} while (!escape);
 
-		Tweet::dashPrint();
+		Tweet::DashPrint();
 		//cout << "Thank you for using this app!" << endl; //temporary line to test loop functions correctly
 	
 	
